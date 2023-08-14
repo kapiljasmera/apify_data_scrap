@@ -24,14 +24,17 @@ def get_reviews():
         
         output_file = 'data/trip_hotel_reviews.json'
         
-        review_list = list(rec_review)
-        rev.extend(review_list)
+        rev.extend(list(rec_review))
     with open(output_file, 'w') as f:
         json.dump(rev, f, indent=4)
 
         # Load JSON data from the file
     with open(output_file, 'r') as json_file:
         data = json.load(json_file)
+
+    for item in data:
+        for i in item:
+            item[i] = json.dumps(item[i])
 
     df = pd.json_normalize(data)
 
